@@ -8,13 +8,21 @@
 -- Создание расширения для UUID (если требуется)
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
+-- Удаление существующих типов ENUM если они есть
+DROP TYPE IF EXISTS enum_users_role CASCADE;
+DROP TYPE IF EXISTS enum_items_status CASCADE;
+
+-- Создание ENUM типов
+CREATE TYPE enum_users_role AS ENUM ('admin', 'user');
+CREATE TYPE enum_items_status AS ENUM ('active', 'inactive', 'archived');
+
 -- Таблица пользователей
 CREATE TABLE IF NOT EXISTS users (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     username VARCHAR(255) NOT NULL UNIQUE,
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    role VARCHAR(50) NOT NULL DEFAULT 'user' CHECK (role IN ('admin', 'user')),
+    role enum_users_role NOT NULL DEFAULT 'user',
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
@@ -24,7 +32,7 @@ CREATE TABLE IF NOT EXISTS items (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     title VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
-    status VARCHAR(50) NOT NULL DEFAULT 'active' CHECK (status IN ('active', 'inactive', 'archived')),
+    status enum_items_status NOT NULL DEFAULT 'active',
     owner_id UUID NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
