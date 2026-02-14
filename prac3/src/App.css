@@ -1,0 +1,222 @@
+.app {
+  min-height: 100vh;
+}
+
+/* Навигация */
+.navbar {
+  background-color: #2c3e50;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: #3498db;
+}
+
+/* Контент */
+.content {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Главная страница */
+.home {
+  text-align: center;
+}
+
+.home h1 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  font-size: 2.5rem;
+}
+
+.home p {
+  color: #7f8c8d;
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+/* Список товаров */
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+/* Карточка товара */
+.product-card {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.product-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  background-color: #ecf0f1;
+}
+
+.product-card h2 {
+  color: #2c3e50;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.product-card p {
+  color: #7f8c8d;
+  margin-bottom: 1rem;
+}
+
+.product-card .price {
+  color: #27ae60;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Детали товара */
+.product-detail {
+  background: white;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.product-detail img {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  background-color: #ecf0f1;
+}
+
+.product-detail h1 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.product-detail .description {
+  color: #7f8c8d;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.product-detail .price {
+  color: #27ae60;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  display: block;
+}
+
+.buy-button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.buy-button:hover {
+  background-color: #2980b9;
+}
+
+/* Страница О нас */
+.about {
+  background: white;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.about h1 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.about p {
+  color: #7f8c8d;
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+/* Страница Контакты */
+.contacts {
+  background: white;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.contacts h1 {
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+}
+
+.contact-info {
+  color: #7f8c8d;
+  line-height: 2;
+}
+
+.contact-info strong {
+  color: #2c3e50;
+}
+
+/* Страница не найдена */
+.not-found {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.not-found h1 {
+  color: #e74c3c;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.not-found p {
+  color: #7f8c8d;
+  font-size: 1.2rem;
+}
+
+.not-found a {
+  color: #3498db;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.not-found a:hover {
+  text-decoration: underline;
+}

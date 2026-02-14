@@ -1,0 +1,136 @@
+.articles-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 40px 20px;
+}
+
+.articles-content {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.articles-header {
+  text-align: center;
+  color: white;
+  margin-bottom: 30px;
+}
+
+.articles-header h1 {
+  margin: 0 0 10px 0;
+  font-size: 36px;
+}
+
+.articles-header p {
+  margin: 0;
+  font-size: 16px;
+  opacity: 0.9;
+}
+
+.permissions-info {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.permissions-info h3 {
+  margin: 0 0 15px 0;
+  color: #333;
+}
+
+.permissions-info ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.permissions-info li {
+  padding: 8px 0;
+  font-size: 15px;
+}
+
+.permissions-info li.has-permission {
+  color: #2e7d32;
+}
+
+.permissions-info li.no-permission {
+  color: #c62828;
+}
+
+.articles-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.article-card {
+  background: white;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.article-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.article-card h2 {
+  margin: 0 0 15px 0;
+  color: #333;
+  font-size: 22px;
+}
+
+.article-card p {
+  margin: 0 0 20px 0;
+  color: #666;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.article-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.btn-edit,
+.btn-delete {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-edit {
+  background-color: #2196f3;
+  color: white;
+}
+
+.btn-edit:hover {
+  background-color: #1976d2;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(33, 150, 243, 0.4);
+}
+
+.btn-delete {
+  background-color: #f44336;
+  color: white;
+}
+
+.btn-delete:hover {
+  background-color: #d32f2f;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(244, 67, 54, 0.4);
+}
+
+.read-only {
+  color: #999;
+  font-size: 14px;
+  font-style: italic;
+}

@@ -1,0 +1,209 @@
+/* Основной контейнер */
+.agreement-container {
+  max-width: 700px;
+  margin: 50px auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Форма соглашения */
+.agreement-form {
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+}
+
+.agreement-form h1 {
+  color: #2c3e50;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 28px;
+}
+
+/* Текст соглашения */
+.agreement-text {
+  background: #f8f9fa;
+  border-left: 4px solid #3498db;
+  padding: 20px;
+  margin-bottom: 25px;
+  border-radius: 5px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.agreement-text h3 {
+  color: #2c3e50;
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+.agreement-text p {
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.agreement-text ul {
+  padding-left: 20px;
+  color: #555;
+}
+
+.agreement-text li {
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+/* Контейнер чекбокса */
+.checkbox-container {
+  margin: 25px 0;
+  padding: 15px;
+  background: #f0f8ff;
+  border-radius: 5px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.agreement-checkbox {
+  width: 20px;
+  height: 20px;
+  margin-right: 12px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.checkbox-text {
+  font-size: 16px;
+  color: #2c3e50;
+  line-height: 1.5;
+}
+
+/* Контейнер кнопки */
+.button-container {
+  text-align: center;
+  margin: 25px 0;
+}
+
+/* Кнопка подтверждения */
+.submit-button {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 14px 40px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.submit-button:hover:not(.disabled) {
+  background: #2980b9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.submit-button:active:not(.disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Отключенная кнопка */
+.submit-button.disabled {
+  background: #bdc3c7;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Информация о состоянии */
+.state-info {
+  margin-top: 25px;
+  padding: 15px;
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.state-info p {
+  margin: 5px 0;
+  color: #856404;
+}
+
+.state-info strong {
+  color: #664d03;
+}
+
+/* Сообщение об успехе */
+.success-message {
+  background: #d4edda;
+  border: 2px solid #28a745;
+  border-radius: 10px;
+  padding: 40px;
+  text-align: center;
+}
+
+.success-message h2 {
+  color: #155724;
+  margin-bottom: 15px;
+  font-size: 32px;
+}
+
+.success-message p {
+  color: #155724;
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.timestamp {
+  font-style: italic;
+  font-size: 14px !important;
+  color: #666 !important;
+  margin-top: 20px !important;
+}
+
+/* Кнопка сброса */
+.reset-button {
+  background: #6c757d;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  font-size: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: all 0.3s ease;
+}
+
+.reset-button:hover {
+  background: #5a6268;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .agreement-container {
+    margin: 20px;
+    padding: 10px;
+  }
+
+  .agreement-form {
+    padding: 20px;
+  }
+
+  .agreement-form h1 {
+    font-size: 24px;
+  }
+
+  .submit-button {
+    padding: 12px 30px;
+    font-size: 15px;
+  }
+}

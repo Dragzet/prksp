@@ -1,0 +1,139 @@
+.editor-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  padding: 40px 20px;
+}
+
+.editor-content {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.editor-header {
+  text-align: center;
+  color: white;
+  margin-bottom: 30px;
+}
+
+.editor-header h1 {
+  margin: 0 0 10px 0;
+  font-size: 36px;
+}
+
+.editor-header p {
+  margin: 0;
+  font-size: 16px;
+  opacity: 0.9;
+}
+
+.role-info {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.role-info h3 {
+  margin: 0 0 15px 0;
+  color: #333;
+}
+
+.roles {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.role-badge {
+  display: inline-block;
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.role-info p {
+  margin: 0;
+  color: #555;
+  font-size: 15px;
+}
+
+.editor-card,
+.info-card {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.editor-card h2,
+.info-card h3 {
+  margin: 0 0 15px 0;
+  color: #333;
+}
+
+.editor-card p,
+.info-card p {
+  margin: 10px 0;
+  color: #666;
+  line-height: 1.6;
+}
+
+.editor-area {
+  margin-top: 30px;
+}
+
+.editor-area label {
+  display: block;
+  margin: 15px 0 8px 0;
+  color: #333;
+  font-weight: 500;
+}
+
+.editor-area input,
+.editor-area textarea {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: inherit;
+  transition: border-color 0.3s;
+  box-sizing: border-box;
+}
+
+.editor-area input:focus,
+.editor-area textarea:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.btn-save {
+  margin-top: 20px;
+  padding: 12px 30px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-save:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.info-card code {
+  background-color: #f5f5f5;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-family: 'Courier New', monospace;
+  color: #c7254e;
+}
