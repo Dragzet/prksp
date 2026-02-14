@@ -1,21 +1,27 @@
 -- Файл с тестовыми данными для демонстрации работы системы
--- ВНИМАНИЕ: Пароли уже захешированы с помощью bcrypt (все пароли: "123456")
+-- ВАЖНО: Перед использованием этого файла сгенерируйте правильные хеши паролей
+-- Запустите: node generateHashes.js и замените хеши ниже
+
+-- ИЛИ просто зарегистрируйтесь через интерфейс приложения!
+-- Этот файл опционален, приложение работает и без него.
 
 -- Очистка таблиц (опционально, если нужно начать с чистого листа)
 -- TRUNCATE TABLE items, users RESTART IDENTITY CASCADE;
 
--- Вставка тестовых пользователей
--- Пароль для admin@example.com: admin123
--- Пароль для user@example.com: user123
--- Пароль для user2@example.com: user123
+-- ВНИМАНИЕ: 
+-- Хеши ниже - это примеры. Они НЕ БУДУТ работать для входа.
+-- Используйте регистрацию через приложение или сгенерируйте правильные хеши командой:
+-- cd backend/database
+-- node generateHashes.js
 
+-- Вставка тестовых пользователей
 INSERT INTO users (id, username, email, password, role, created_at, updated_at) 
 VALUES 
     (
         'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
         'admin',
         'admin@example.com',
-        '$2a$10$XQm5xKw8YxGxUZ0QZqK5Xe1VZKvW3gJlrPGqQZqKvW3gJlrPGqQZq',
+        '$2a$10$ЗАМЕНИТЕ_ЭТОТ_ХЕШ_НА_ПРАВИЛЬНЫЙ_ИЗ_generateHashes',
         'admin',
         CURRENT_TIMESTAMP,
         CURRENT_TIMESTAMP
@@ -24,7 +30,7 @@ VALUES
         'b1ffbc99-9c0b-4ef8-bb6d-6bb9bd380a22',
         'user1',
         'user@example.com',
-        '$2a$10$XQm5xKw8YxGxUZ0QZqK5Xe1VZKvW3gJlrPGqQZqKvW3gJlrPGqQZq',
+        '$2a$10$ЗАМЕНИТЕ_ЭТОТ_ХЕШ_НА_ПРАВИЛЬНЫЙ_ИЗ_generateHashes',
         'user',
         CURRENT_TIMESTAMP,
         CURRENT_TIMESTAMP
@@ -33,7 +39,7 @@ VALUES
         'c2ffbc99-9c0b-4ef8-bb6d-6bb9bd380a33',
         'user2',
         'user2@example.com',
-        '$2a$10$XQm5xKw8YxGxUZ0QZqK5Xe1VZKvW3gJlrPGqQZqKvW3gJlrPGqQZq',
+        '$2a$10$ЗАМЕНИТЕ_ЭТОТ_ХЕШ_НА_ПРАВИЛЬНЫЙ_ИЗ_generateHashes',
         'user',
         CURRENT_TIMESTAMP,
         CURRENT_TIMESTAMP
