@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { body, validationResult } = require('express-validator');
-const User = require('../models/User');
+const { User } = require('../models');
 
 // Регистрация пользователя
 router.post(
@@ -23,7 +23,11 @@ router.post(
       const { username, email, password, role } = req.body;
 
       // Проверка существования пользователя
-      let user = await User.findOne({ $or: [{ email }, { username }] });
+      let user = await User.findOne({ 
+        where: { 
+          [require('sequelize').Op.or]: [{ email }, { username }] 
+        } 
+      });
       if (user) {
         return res.status(400).json({ message: 'Пользователь с таким email или именем уже существует' });
       }
@@ -33,18 +37,16 @@ router.post(
       const hashedPassword = await bcrypt.hash(password, salt);
 
       // Создание нового пользователя
-      user = new User({
+      user = await User.create({
         username,
         email,
         password: hashedPassword,
         role: role || 'user' // По умолчанию роль 'user'
       });
 
-      await user.save();
-
       // Создание JWT токена
       const token = jwt.sign(
-        { userId: user._id, role: user.role },
+        { userId: user.id, role: user.role },
         process.env.JWT_SECRET,
         { expiresIn: '24h' }
       );
@@ -53,7 +55,7 @@ router.post(
         message: 'Пользователь успешно зарегистрирован',
         token,
         user: {
-          id: user._id,
+          id: user.id,
           username: user.username,
           email: user.email,
           role: user.role
@@ -83,7 +85,7 @@ router.post(
       const { email, password } = req.body;
 
       // Поиск пользователя
-      const user = await User.findOne({ email });
+      const user = await User.findOne({ where: { email } });
       if (!user) {
         return res.status(400).json({ message: 'Неверные учетные данные' });
       }
@@ -96,7 +98,7 @@ router.post(
 
       // Создание JWT токена
       const token = jwt.sign(
-        { userId: user._id, role: user.role },
+        { userId: user.id, role: user.role },
         process.env.JWT_SECRET,
         { expiresIn: '24h' }
       );
@@ -105,7 +107,7 @@ router.post(
         message: 'Вход выполнен успешно',
         token,
         user: {
-          id: user._id,
+          id: user.id,
           username: user.username,
           email: user.email,
           role: user.role

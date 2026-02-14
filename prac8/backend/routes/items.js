@@ -1,22 +1,28 @@
 const express = require('express');
 const router = express.Router();
 const { body, validationResult } = require('express-validator');
-const Item = require('../models/Item');
+const { Item, User } = require('../models');
 const { auth, isAdmin } = require('../middleware/auth');
 
 // Получить все элементы (админ видит все, пользователь - только свои)
 router.get('/', auth, async (req, res) => {
   try {
-    let query = {};
+    let whereClause = {};
     
     // Если пользователь не администратор, показываем только его элементы
     if (req.user.role !== 'admin') {
-      query.owner = req.user._id;
+      whereClause.ownerId = req.user.id;
     }
 
-    const items = await Item.find(query)
-      .populate('owner', 'username email role')
-      .sort({ createdAt: -1 });
+    const items = await Item.findAll({
+      where: whereClause,
+      include: [{
+        model: User,
+        as: 'owner',
+        attributes: ['id', 'username', 'email', 'role']
+      }],
+      order: [['createdAt', 'DESC']]
+    });
 
     res.json({
       items,
@@ -32,14 +38,20 @@ router.get('/', auth, async (req, res) => {
 // Получить элемент по ID
 router.get('/:id', auth, async (req, res) => {
   try {
-    const item = await Item.findById(req.params.id).populate('owner', 'username email role');
+    const item = await Item.findByPk(req.params.id, {
+      include: [{
+        model: User,
+        as: 'owner',
+        attributes: ['id', 'username', 'email', 'role']
+      }]
+    });
     
     if (!item) {
       return res.status(404).json({ message: 'Элемент не найден' });
     }
 
     // Проверка прав доступа (владелец или администратор)
-    if (req.user.role !== 'admin' && item.owner._id.toString() !== req.user._id.toString()) {
+    if (req.user.role !== 'admin' && item.ownerId !== req.user.id) {
       return res.status(403).json({ message: 'Доступ запрещен' });
     }
 
@@ -67,19 +79,24 @@ router.post(
 
       const { title, description, status } = req.body;
 
-      const item = new Item({
+      const item = await Item.create({
         title,
         description,
         status: status || 'active',
-        owner: req.user._id
+        ownerId: req.user.id
       });
 
-      await item.save();
-      await item.populate('owner', 'username email role');
+      const itemWithOwner = await Item.findByPk(item.id, {
+        include: [{
+          model: User,
+          as: 'owner',
+          attributes: ['id', 'username', 'email', 'role']
+        }]
+      });
 
       res.status(201).json({
         message: 'Элемент успешно создан',
-        item
+        item: itemWithOwner
       });
     } catch (error) {
       console.error(error);
@@ -103,14 +120,14 @@ router.put(
         return res.status(400).json({ errors: errors.array() });
       }
 
-      const item = await Item.findById(req.params.id);
+      const item = await Item.findByPk(req.params.id);
       
       if (!item) {
         return res.status(404).json({ message: 'Элемент не найден' });
       }
 
       // Проверка прав доступа (владелец или администратор)
-      if (req.user.role !== 'admin' && item.owner.toString() !== req.user._id.toString()) {
+      if (req.user.role !== 'admin' && item.ownerId !== req.user.id) {
         return res.status(403).json({ message: 'Доступ запрещен. Вы можете редактировать только свои элементы' });
       }
 
@@ -121,11 +138,18 @@ router.put(
       if (status) item.status = status;
 
       await item.save();
-      await item.populate('owner', 'username email role');
+
+      const updatedItem = await Item.findByPk(item.id, {
+        include: [{
+          model: User,
+          as: 'owner',
+          attributes: ['id', 'username', 'email', 'role']
+        }]
+      });
 
       res.json({
         message: 'Элемент успешно обновлен',
-        item
+        item: updatedItem
       });
     } catch (error) {
       console.error(error);
@@ -137,18 +161,18 @@ router.put(
 // Удалить элемент (владелец или администратор)
 router.delete('/:id', auth, async (req, res) => {
   try {
-    const item = await Item.findById(req.params.id);
+    const item = await Item.findByPk(req.params.id);
     
     if (!item) {
       return res.status(404).json({ message: 'Элемент не найден' });
     }
 
     // Проверка прав доступа (владелец или администратор)
-    if (req.user.role !== 'admin' && item.owner.toString() !== req.user._id.toString()) {
+    if (req.user.role !== 'admin' && item.ownerId !== req.user.id) {
       return res.status(403).json({ message: 'Доступ запрещен. Вы можете удалять только свои элементы' });
     }
 
-    await Item.findByIdAndDelete(req.params.id);
+    await item.destroy();
 
     res.json({ message: 'Элемент успешно удален' });
   } catch (error) {
@@ -160,9 +184,14 @@ router.delete('/:id', auth, async (req, res) => {
 // Получить всех пользователей (только для администратора)
 router.get('/admin/all-items', [auth, isAdmin], async (req, res) => {
   try {
-    const items = await Item.find()
-      .populate('owner', 'username email role')
-      .sort({ createdAt: -1 });
+    const items = await Item.findAll({
+      include: [{
+        model: User,
+        as: 'owner',
+        attributes: ['id', 'username', 'email', 'role']
+      }],
+      order: [['createdAt', 'DESC']]
+    });
 
     res.json({
       items,

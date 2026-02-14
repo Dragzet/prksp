@@ -12,7 +12,7 @@
 
 ### Backend
 - Node.js + Express
-- MongoDB + Mongoose
+- PostgreSQL + Sequelize ORM
 - JWT для аутентификации
 - bcryptjs для хеширования паролей
 
@@ -61,7 +61,7 @@ prac8/
 
 ### Предварительные требования
 - Node.js (v14+)
-- MongoDB (локально или MongoDB Atlas)
+- PostgreSQL (v12+)
 - npm или yarn
 
 ### Backend
@@ -76,20 +76,33 @@ cd backend
 npm install
 ```
 
-3. Настройте `.env` файл (уже создан):
+3. Настройте PostgreSQL:
+   - Установите PostgreSQL если еще не установлен
+   - Создайте базу данных:
+   ```sql
+   CREATE DATABASE prac8_rbac;
+   ```
+
+4. Настройте `.env` файл:
 ```
 PORT=5000
-MONGODB_URI=mongodb://localhost:27017/prac8_rbac
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=prac8_rbac
+DB_USER=postgres
+DB_PASSWORD=postgres
 JWT_SECRET=your_jwt_secret_key_change_this_in_production
 NODE_ENV=development
 ```
 
-4. Запустите сервер:
+5. Запустите сервер:
 ```bash
 npm start
 # или для режима разработки с автоперезагрузкой:
 npm run dev
 ```
+
+При первом запуске Sequelize автоматически создаст необходимые таблицы.
 
 Сервер запустится на `http://localhost:5000`
 
@@ -211,7 +224,7 @@ npm start
 - ✅ Ролевая модель (RBAC)
 - ✅ Разделение пользователей
 - ✅ Разные права для ролей
-- ✅ React + Node.js + MongoDB
+- ✅ React + Node.js + PostgreSQL
 - ✅ Аутентификация и авторизация
 - ✅ Защита маршрутов
 

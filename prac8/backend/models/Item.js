@@ -1,39 +1,55 @@
-const mongoose = require('mongoose');
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/database');
+const User = require('./User');
 
-const itemSchema = new mongoose.Schema({
+const Item = sequelize.define('Item', {
+  id: {
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
+    primaryKey: true
+  },
   title: {
-    type: String,
-    required: true,
-    trim: true
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
   },
   description: {
-    type: String,
-    required: true
-  },
-  owner: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
+    type: DataTypes.TEXT,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
   },
   status: {
-    type: String,
-    enum: ['active', 'inactive', 'archived'],
-    default: 'active'
+    type: DataTypes.ENUM('active', 'inactive', 'archived'),
+    defaultValue: 'active',
+    allowNull: false
   },
-  createdAt: {
-    type: Date,
-    default: Date.now
-  },
-  updatedAt: {
-    type: Date,
-    default: Date.now
+  ownerId: {
+    type: DataTypes.UUID,
+    allowNull: false,
+    references: {
+      model: 'users',
+      key: 'id'
+    }
   }
+}, {
+  tableName: 'items',
+  timestamps: true,
+  underscored: true
 });
 
-// Обновляем updatedAt при изменении
-itemSchema.pre('save', function(next) {
-  this.updatedAt = Date.now();
-  next();
+// Определяем связь между Item и User
+Item.belongsTo(User, {
+  foreignKey: 'ownerId',
+  as: 'owner'
 });
 
-module.exports = mongoose.model('Item', itemSchema);
+User.hasMany(Item, {
+  foreignKey: 'ownerId',
+  as: 'items'
+});
+
+module.exports = Item;
